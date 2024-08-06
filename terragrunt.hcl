@@ -20,7 +20,15 @@ locals {
   account_id   = local.account_vars.locals.aws_account_id
   aws_region   = local.region_vars.locals.aws_region
 }
-
+#especify the provider version ( hashicorp provider)
+# terraform {
+#   required_providers {
+#     aws = {
+#       source  = "hashicorp/aws"
+#       version ~> "5.0"
+#     }
+#   }
+# }
 # Generate an AWS provider block
 generate "provider" {
   path      = "provider.tf"
@@ -28,6 +36,8 @@ generate "provider" {
   contents  = <<EOF
 provider "aws" {
   region = "${local.aws_region}"
+  
+
 
   # Only these AWS Account IDs may be operated on by this template
   allowed_account_ids = ["${local.account_id}"]
@@ -40,10 +50,10 @@ remote_state {
   backend = "s3"
   config = {
     encrypt        = true
-    bucket         = "terragrunt-MLOps1-tf-state-${local.account_name}-${local.account_id}"
+    bucket         = "terragrunt-mlops1-tf-state-${local.account_name}-${local.account_id}"
     key            = "${path_relative_to_include()}/tf.tfstate"
     region         = local.aws_region # us-east-1 ( could be fix)
-    dynamodb_table = "tf-MLOps1-lock"
+    dynamodb_table = "tf-mlops1-lock"
   }
   generate = {
     path      = "backend.tf" 

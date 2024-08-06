@@ -11,6 +11,9 @@ terraform {
 
 # path to my lambda code designed for production.
 inputs = {
-    lambda_source_path = "${path.module}/../../../../../src/lambda_code/lambda_function_test/lambda_function_prod.zip" 
+    lambda_source_path = "${get_terragrunt_dir()}/../../../../../src/lambda_code/lambda_function_test/lambda_function_prod"
+    lambda_output_path = "${get_terragrunt_dir()}/../../../../../src/lambda_code/lambda_function_test/lambda_function_prod/lambda_function.zip"
     lambda_name = "lambda_function_prod"
+
 }
+
