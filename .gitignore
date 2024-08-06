@@ -2,4 +2,4 @@
 *.tfstate
 *.terraform
 *.terragrunt-cache
-*account.hcl
+account.hcl
