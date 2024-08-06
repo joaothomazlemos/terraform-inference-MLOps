@@ -1,5 +1,7 @@
 *.terragrunt
-*.tfstate
-*.terraform
+*.tfstate.*
+*.terraform/
 *.terragrunt-cache
 account.hcl
+# Ignore the specific account.hcl file in the prod environment
+enviroments/prod/account.hcl
