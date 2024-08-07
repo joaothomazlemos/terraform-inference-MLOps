@@ -21,14 +21,14 @@ locals {
   aws_region   = local.region_vars.locals.aws_region
 }
 #especify the provider version ( hashicorp provider)
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version ~> "5.0"
-    }
-  }
-}
+# terraform {
+#   required_providers {
+#     aws = {
+#       source  = "hashicorp/aws"
+#       version ~> "5.0"
+#     }
+#   }
+# }
 # Generate an AWS provider block
 generate "provider" {
   path      = "provider.tf"
