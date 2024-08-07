@@ -6,14 +6,14 @@ include {
 
 # get the basic lambda module
 terraform {
-    source = "../../../../../modules/lambda"  # path to my lambda generic architecture module without layers.
+    source = "../../../../../modules/lambda_basic"  # path to my lambda generic architecture module without layers.
 }
 
 # path to my lambda code designed for production.
 inputs = {
     lambda_source_path = "${get_terragrunt_dir()}/../../../../../src/lambda_code/lambda_function_test/lambda_function_prod"
     lambda_output_path = "${get_terragrunt_dir()}/../../../../../src/lambda_code/lambda_function_test/lambda_function_prod/lambda_function.zip"
-    lambda_name = "lambda_function_prod"
+    lambda_name = "lambda_function_test_prod"
 
 }
 

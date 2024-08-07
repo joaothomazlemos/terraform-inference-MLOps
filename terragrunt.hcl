@@ -11,9 +11,9 @@ locals {
   # Automatically load region-level variables
   region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
-#ignoring the env variables for now.
-    # Automatically load environment-level variables
-    # env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+
+  # Automatically load environment-level variables
+  env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
 
   # Extract the variables we need for easy access
   account_name = local.account_vars.locals.account_name
@@ -21,14 +21,14 @@ locals {
   aws_region   = local.region_vars.locals.aws_region
 }
 #especify the provider version ( hashicorp provider)
-# terraform {
-#   required_providers {
-#     aws = {
-#       source  = "hashicorp/aws"
-#       version ~> "5.0"
-#     }
-#   }
-# }
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version ~> "5.0"
+    }
+  }
+}
 # Generate an AWS provider block
 generate "provider" {
   path      = "provider.tf"
@@ -74,6 +74,6 @@ remote_state {
 inputs = merge(
   local.account_vars.locals,
   local.region_vars.locals,
-#   local.environment_vars.locals, # we are going to have only one env for now.
+  local.env_vars.locals,
 
 )

@@ -4,4 +4,4 @@ import os
 
 
 def lambda_handler():
-    return "Hello from Lambda! We are in production now!"
+    return "Hello from Lambda! We are in production now! Are we?"
