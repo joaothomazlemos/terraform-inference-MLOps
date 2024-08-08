@@ -13,8 +13,8 @@ ENV PYTHONDONTWRITEBYTECODE=TRUE
 RUN pip install --upgrade pip
 RUN pip install --quiet -r ${LAMBDA_TASK_ROOT}/requirements.txt 
 
-#copy my lambda handler
-COPY lambda_function.py ${LAMBDA_TASK_ROOT}
+# #copy my lambda handler
+# COPY lambda_function.py ${LAMBDA_TASK_ROOT}
 
 # Copy everything inside the app folder
 COPY app/ ${LAMBDA_TASK_ROOT}/app/
