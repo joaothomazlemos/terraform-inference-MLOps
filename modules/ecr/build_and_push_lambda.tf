@@ -4,7 +4,10 @@ data "aws_ecr_authorization_token" "auth" {}
 
 locals {
   repository_url = aws_ecr_repository.lambda_image_repository.repository_url # created on the aws_ecr_repository resource on this module, passed by the ecr component
-  image_tag = "${var.ecr_image_tag}-${timestamp()}"
+  image_tag = "${var.ecr_image_tag}"
+  image_files    = fileset("${var.image_source}", "**")
+  image_hashes   = [for file in local.image_files : filesha1("${var.image_source}/${file}")]
+  combined_hash  = sha1(join("", local.image_hashes))
 }
 
 #var environment = could be prod or dev
@@ -19,8 +22,11 @@ resource "null_resource" "build_and_push_lambda" {
     EOF
     }
 
-    # Add a trigger so that this resource is executed whenever the Dockerfile or other relevant files change
+
+  # Add a trigger so that this resource is executed whenever any file under the image source directory changes
   triggers = {
+    # Triggers if any file under the image source directory changes ( like a code inside a .py file)
+    image_source_sha1 = local.combined_hash
     image_source = var.image_source
     environment = var.ecr_image_tag
   }
