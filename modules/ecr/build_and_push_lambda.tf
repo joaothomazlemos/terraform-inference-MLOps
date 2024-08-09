@@ -8,6 +8,7 @@ locals {
   image_files    = fileset("${var.image_source}", "**")
   image_hashes   = [for file in local.image_files : filesha1("${var.image_source}/${file}")]
   combined_hash  = sha1(join("", local.image_hashes))
+  
 }
 
 #var environment = could be prod or dev
@@ -30,4 +31,8 @@ resource "null_resource" "build_and_push_lambda" {
     image_source = var.image_source
     environment = var.ecr_image_tag
   }
+}
+
+data "docker_registry_image" "image" {
+  name = "${local.repository_url}:${var.ecr_image_tag}"
 }

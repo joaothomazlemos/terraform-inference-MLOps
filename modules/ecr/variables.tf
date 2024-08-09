@@ -14,6 +14,11 @@ variable "region" {
     type        = string
 }
 
+variable "account_id" {
+    description = "The account id of the ECR repository"
+    type        = string
+  
+}
 
 variable "image_source" {
     description = "The source code of the image"

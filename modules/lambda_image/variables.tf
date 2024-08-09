@@ -9,3 +9,9 @@ variable "image_uri" {
   type        = string
   
 }
+
+variable "image_digest" {
+  description = "The digest of the Docker image"
+  type        = string
+  
+}
