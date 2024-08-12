@@ -1,0 +1,24 @@
+name: "🚀 Deployment of IaC on push"
+
+permissions: read-all
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+    checks:
+        runs-on: ubuntu-latest
+        steps:
+            -name: Checkout repository
+            uses: actions/checkout@v4.1.7
+
+            -name:
+
+
+
+  
