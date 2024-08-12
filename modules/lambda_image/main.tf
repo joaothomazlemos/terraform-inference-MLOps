@@ -3,7 +3,7 @@ module "lambda_function_container_image" {
 
   function_name = var.lambda_name
   description   = "A Lambda image to test my knowledge"
-  runtime = "python3.10"
+  runtime       = "python3.10"
 
   create_package = false
 
@@ -14,7 +14,4 @@ module "lambda_function_container_image" {
   environment_variables = {
     IMAGE_DIGEST = var.image_digest
   }
-  
-
-  
 }
