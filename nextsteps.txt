@@ -1,0 +1,2 @@
+adapt github actions to build th edocker image/ use the login secrets
+organize the main on the root to be the lambda_component
