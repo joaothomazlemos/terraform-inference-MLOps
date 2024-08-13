@@ -1,0 +1,70 @@
+name: "🚀 Deployment of IaC on push"
+
+permissions: read-all
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+env:
+  tf_version: 1.9.4
+  tg_version: 0.66.4
+  working_directory: "enviroments/prod/us-east-1/components/ecr_lambda_test2"
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.6
+
+      - name: Check terragrunt HCL formatting
+        uses: gruntwork-io/terragrunt-action@v2.1.3
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_directory }}
+          tg_command: "hclfmt --terragrunt-check --terragrunt-diff"
+
+  plan:
+    runs-on: ubuntu-latest
+    needs: [checks]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.6
+
+      - name: Plan
+        uses: gruntwork-io/terragrunt-action@v2.1.3
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_directory }}
+          tg_command: "run-all plan"
+
+  apply:
+    runs-on: ubuntu-latest
+    needs: [plan]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.7
+
+      - name: Apply
+        uses: gruntwork-io/terragrunt-action@v2.1.3
+        env:
+          INPUT_PRE_EXEC_0: 'curl -sLO https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip && unzip -q awscli-exe-linux-x86_64.zip && ./aws/install && curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh'
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_directory }}
+          tg_command: "run-all apply"
+
+ 
+
+  

@@ -3,7 +3,7 @@
 # Terragrunt is a thin wrapper for Terraform/OpenTofu that provides extra tools for working with multiple modules,
 # remote state, and locking: https://github.com/gruntwork-io/terragrunt
 # ---------------------------------------------------------------------------------------------------------------------
- # this allows the modules that inherit it to have access to the account and region variables from parent folders.
+# this allows the modules that inherit it to have access to the account and region variables from parent folders.
 locals {
   # Automatically load account-level variables
   account_vars = read_terragrunt_config(find_in_parent_folders("account.hcl"))
@@ -20,15 +20,6 @@ locals {
   account_id   = local.account_vars.locals.aws_account_id
   aws_region   = local.region_vars.locals.aws_region
 }
-#especify the provider version ( hashicorp provider)
-# terraform {
-#   required_providers {
-#     aws = {
-#       source  = "hashicorp/aws"
-#       version ~> "5.0"
-#     }
-#   }
-# }
 # Generate an AWS provider block
 generate "provider" {
   path      = "provider.tf"
@@ -56,7 +47,7 @@ remote_state {
     dynamodb_table = "tf-mlops1-lock"
   }
   generate = {
-    path      = "backend.tf" 
+    path      = "backend.tf"
     if_exists = "overwrite_terragrunt"
   }
 }

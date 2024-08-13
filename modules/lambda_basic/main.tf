@@ -6,7 +6,7 @@ data "archive_file" "lambda_package" {
 }
 
 module "test_lambda" {
-  source        = "terraform-aws-modules/lambda/aws" 
+  source        = "terraform-aws-modules/lambda/aws"
   function_name = var.lambda_name
   description   = "A Lambda function to test my knowledge"
   runtime       = "python3.10"

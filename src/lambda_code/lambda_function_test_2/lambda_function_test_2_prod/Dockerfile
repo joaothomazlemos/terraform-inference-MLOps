@@ -1,7 +1,7 @@
 FROM public.ecr.aws/lambda/python:3.10
 
 # Set the label for the Docker image, the author and the creation date
-LABEL maintainer=" João Thomaz Lemos <joaothomazlemos@gmail.com>"
+LABEL maintainer=" João Thomaz Lemos <joaothomaz@2neuron.com> "
 LABEL date="2024-05-24"
 # Copy requirements.txt
 COPY requirements.txt ${LAMBDA_TASK_ROOT}
