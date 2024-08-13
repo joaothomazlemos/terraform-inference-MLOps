@@ -1,16 +1,16 @@
-
 # locals {
-#   image_source = "./src/lambda_code/lambda_function_test_2/lambda_function_test_2_prod"
+#   image_source = "../../../../../src/lambda_code/lambda_function_test_2/lambda_function_test_2_${var.env}"
+#   source       = "../../../../../modules/ecr_lambda_image"
 # }
 
-# # Example ECR to contain Lambda image
+# # ECR to contain Lambda image
 # module "lambda_ecr" {
-#   source              = "./modules/ecr"
-#   account_id          = var.account_id
 #   ecr_repository_name = "ecr_lambda_test2"
-#   ecr_image_tag       = "prod"
-#   region              = var.region
+#   source              = local.source
 #   image_source        = local.image_source
+#   account_id          = var.account_id # vars comes from inputs
+#   ecr_image_tag       = var.env
+#   region              = var.region 
 # }
 
 # # Example Lambda function deployed using ECR image
@@ -22,3 +22,4 @@
 
 #   depends_on = [module.lambda_ecr]
 # }
+
