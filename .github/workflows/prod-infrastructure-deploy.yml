@@ -54,10 +54,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.1.7
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
 
       - name: Apply
         uses: gruntwork-io/terragrunt-action@v2.1.3
@@ -66,6 +73,7 @@ jobs:
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.working_directory }}
           tg_command: "run-all apply"
+
  
 
   
