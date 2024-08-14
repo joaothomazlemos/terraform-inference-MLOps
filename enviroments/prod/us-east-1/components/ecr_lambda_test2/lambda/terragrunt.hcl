@@ -15,8 +15,19 @@ locals {
   aws_account_id = local.account_vars.locals.aws_account_id
   env            = local.env_vars.locals.environment
   image_source   = "../../../../../../src/lambda_code/lambda_function_test_2/lambda_function_test_2_${local.env}"
+  
 
 }
+
+
+
+dependency "public_ecr" {
+  config_path = find_in_parent_folders("ecr") #path to the ecr module
+  mock_outputs = {
+    image_uri = "aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName"
+    image_digest = "1234567890"
+  }
+  }
 
 
 
@@ -27,15 +38,5 @@ inputs = {
   image_uri   = dependency.public_ecr.outputs.public_repository_url
   image_digest = dependency.public_ecr.outputs.public_image_digest
   
-  
-   
 }
-
-dependency "public_ecr" {
-  config_path = find_in_parent_folders("ecr") #path to the ecr module
-  mock_outputs = {
-    image_uri = "aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName"
-    image_digest = "1234567890"
-  }
-  }
 

@@ -14,5 +14,7 @@ module "lambda_function_container_image" {
   environment_variables = {
     IMAGE_DIGEST = var.image_digest
   }
+
+
 }
 
