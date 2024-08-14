@@ -30,3 +30,9 @@ output "public_repository_url" {
   description = "The URL of the repository (in the form `aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName`)"
   value       = module.public_ecr.repository_url
 }
+
+output "public_image_digest" {
+  description = "The image digest that identifies the image in the repository"
+  value       = data.aws_ecr_image.latest_image.image_digest
+}
+

@@ -15,19 +15,27 @@ locals {
   aws_account_id = local.account_vars.locals.aws_account_id
   env            = local.env_vars.locals.environment
   image_source   = "../../../../../../src/lambda_code/lambda_function_test_2/lambda_function_test_2_${local.env}"
+
 }
+
+
 
 inputs = {
   #lambda module instance
   lambda_name = "lambda_function_test_2"
   lambda_image_description = "A Lambda image to test my knowledge"
-  image_uri   = module.public_ecr.public_repository_url
-  image_digest = module.public_ecr.image_digest
+  image_uri   = dependency.public_ecr.outputs.public_repository_url
+  image_digest = dependency.public_ecr.outputs.public_image_digest
   
   
    
 }
 
 dependency "public_ecr" {
-  config_path = find_in_parent_folders("ecr/terragrunt.hcl")
-}
+  config_path = find_in_parent_folders("ecr") #path to the ecr module
+  mock_outputs = {
+    image_uri = "aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName"
+    image_digest = "1234567890"
+  }
+  }
+
