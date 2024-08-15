@@ -22,12 +22,16 @@ locals {
 
 
 dependency "public_ecr" {
-  config_path = find_in_parent_folders("ecr") #path to the ecr module
+  config_path = "../ecr"
   mock_outputs = {
-    image_uri = "aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName"
-    image_digest = "1234567890"
+    public_repository_name       = "mock-repository-name"
+    public_repository_arn        = "arn:aws:ecr:region:aws_account_id:repository/mock-repository-name"
+    public_repository_registry_id = "mock-registry-id"
+    public_repository_url        = "aws_account_id.dkr.ecr.region.amazonaws.com/mock-repository-name"
+    public_image_digest          = "mock-image-digest"
   }
-  }
+}
+
 
 
 
