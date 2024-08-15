@@ -39,3 +39,18 @@ data "aws_ecr_image" "latest_image" {
 
   depends_on = [null_resource.build_and_push_lambda]
 }
+
+output "image_files" {
+  value = local.image_files
+  
+}
+
+output "image_source" {
+  value = var.image_source
+  
+}
+
+output "working_directory" {
+  value = path.cwd
+  
+}

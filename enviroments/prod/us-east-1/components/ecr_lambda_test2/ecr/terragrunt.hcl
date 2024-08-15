@@ -3,7 +3,7 @@ include {
   path = find_in_parent_folders()
 }
 
-terraform {
+terraform { # where my module is located
   source = "../../../../../../modules/ecr_lambda_image/ecr"
 }
 
@@ -14,7 +14,7 @@ locals {
   aws_region     = local.region_vars.locals.aws_region
   aws_account_id = local.account_vars.locals.aws_account_id
   env            = local.env_vars.locals.environment
-  image_source   = "../../../../../../src/lambda_code/lambda_function_test_2/lambda_function_test_2_${local.env}"
+  image_source   = "${find_in_parent_folders("src/")}/lambda_code/lambda_function_test_2/lambda_function_test_2_${local.env}"
 }
 
 inputs = {
