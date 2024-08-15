@@ -24,7 +24,7 @@ inputs = {
   account_id          = local.aws_account_id
   region              = local.aws_region
   ecr_image_tag       = local.env
-  
-  
+
+
 }
 
