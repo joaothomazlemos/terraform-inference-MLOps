@@ -4,7 +4,7 @@ variable "ecr_repository_name" {
 }
 
 variable "ecr_image_tag" {
-  description = "The tag of the ECR repository"
+  description = "The tag of the ECR repository, will reflect the environment"
   type        = string
 
 }
@@ -24,3 +24,4 @@ variable "image_source" {
   description = "The source code of the image"
   type        = string
 }
+

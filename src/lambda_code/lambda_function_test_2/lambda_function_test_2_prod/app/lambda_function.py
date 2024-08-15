@@ -10,9 +10,9 @@ def lambda_handler():
     sns = boto3.client('sns')
     sns.publish(
         TopicArn=topic_arn,
-         Message="Hello from Lambda IMAGE! We are in production now! Are we?!"
+         Message="Hello from Lambda IMAGE! We are in production now! Are we?!...???."
     )
     return {
         'statusCode': 200,
-        'body': json.dumps('Hello from Lambda IMAGE! We are in production now! Are we??')
+        'body': json.dumps('Hello from Lambda IMAGE! We are in production now! Are we!?!')
     }
