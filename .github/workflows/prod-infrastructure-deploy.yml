@@ -5,10 +5,10 @@ permissions: read-all
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 env:
   tf_version: 1.9.4
