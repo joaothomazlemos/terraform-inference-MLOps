@@ -37,3 +37,7 @@ output "private_image_digest" {
 }
 
 
+output "private_combined_hash" {
+  description = "The combined hash of all the files in the image source directory"
+  value       = local.combined_hash
+}
