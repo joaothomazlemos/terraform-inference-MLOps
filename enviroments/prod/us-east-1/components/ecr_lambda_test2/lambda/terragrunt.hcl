@@ -21,14 +21,14 @@ locals {
 
 
 
-dependency "public_ecr" {
+dependency "private_ecr" {
   config_path = "../ecr"
   mock_outputs = {
-    public_repository_name       = "mock-repository-name"
-    public_repository_arn        = "arn:aws:ecr:region:aws_account_id:repository/mock-repository-name"
-    public_repository_registry_id = "mock-registry-id"
-    public_repository_url        = "aws_account_id.dkr.ecr.region.amazonaws.com/mock-repository-name"
-    public_image_digest          = "mock-image-digest"
+    private_repository_name       = "mock-repository-name"
+    private_repository_arn        = "arn:aws:ecr:region:aws_account_id:repository/mock-repository-name"
+    private_repository_registry_id = "mock-registry-id"
+    private_repository_url        = "aws_account_id.dkr.ecr.region.amazonaws.com/mock-repository-name"
+    private_image_digest          = "mock-image-digest"
   }
 }
 
@@ -39,8 +39,10 @@ inputs = {
   #lambda module instance
   lambda_name = "lambda_function_test_2"
   lambda_image_description = "A Lambda image to test my knowledge"
-  image_uri   = dependency.public_ecr.outputs.public_repository_url
-  image_digest = dependency.public_ecr.outputs.public_image_digest
+  image_uri   = dependency.private_ecr.outputs.private_repository_url
+  image_digest = dependency.private_ecr.outputs.private_image_digest
+  ecr_image_tag = local.env
+
   
 }
 

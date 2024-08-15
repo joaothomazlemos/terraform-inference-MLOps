@@ -2,8 +2,8 @@ data "aws_caller_identity" "current" {}
 data "aws_ecr_authorization_token" "auth" {}
 
 locals {
-  repository_url = module.public_ecr.repository_url # created on the aws_ecr_repository resource on this module, passed by the ecr component
-  repository_name = module.public_ecr.repository_name
+  repository_url = module.private_ecr.repository_url # created on the aws_ecr_repository resource on this module, passed by the ecr component
+  repository_name = module.private_ecr.repository_name
   image_tag      = var.ecr_image_tag
   image_files    = fileset("${var.image_source}", "**")
   image_hashes   = [for file in local.image_files : filesha1("${var.image_source}/${file}")]

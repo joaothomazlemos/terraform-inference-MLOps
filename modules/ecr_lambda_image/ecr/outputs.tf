@@ -8,31 +8,32 @@
 
 
 ################################################################################
-# Public Repository
+# private Repository
 ################################################################################
 
-output "public_repository_name" {
+output "private_repository_name" {
   description = "Name of the repository"
-  value       = module.public_ecr.repository_name
+  value       = module.private_ecr.repository_name
 }
 
-output "public_repository_arn" {
+output "private_repository_arn" {
   description = "Full ARN of the repository"
-  value       = module.public_ecr.repository_arn
+  value       = module.private_ecr.repository_arn
 }
 
-output "public_repository_registry_id" {
+output "private_repository_registry_id" {
   description = "The registry ID where the repository was created"
-  value       = module.public_ecr.repository_registry_id
+  value       = module.private_ecr.repository_registry_id
 }
 
-output "public_repository_url" {
+output "private_repository_url" {
   description = "The URL of the repository (in the form `aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName`)"
-  value       = module.public_ecr.repository_url
+  value       = module.private_ecr.repository_url
 }
 
-output "public_image_digest" {
+output "private_image_digest" {
   description = "The image digest that identifies the image in the repository"
   value       = data.aws_ecr_image.latest_image.image_digest
 }
+
 

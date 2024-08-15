@@ -20,3 +20,9 @@ variable "lambda_image_description" {
   description = "The description of the lambda image"
   type        = string
 }
+
+variable "ecr_image_tag" {
+  description = "The tag of the Docker image"
+  type        = string
+  
+}

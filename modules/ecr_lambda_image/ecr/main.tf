@@ -12,14 +12,14 @@
 
 
 
-module "public_ecr" {
+module "private_ecr" {
   source = "terraform-aws-modules/ecr/aws"
 
   repository_image_scan_on_push = true
   repository_image_tag_mutability = "MUTABLE"
 
   repository_name = var.ecr_repository_name
-  repository_type = "public"
+  repository_type = "private"
   repository_read_write_access_arns = [data.aws_caller_identity.current.arn]
   
   create_lifecycle_policy = true
