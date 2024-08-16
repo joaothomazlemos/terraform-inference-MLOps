@@ -1,3 +1,7 @@
+
+# data "aws_caller_identity" "current" {}
+# data "aws_ecr_authorization_token" "auth" {}
+
 module "lambda_function_container_image" {
   source = "terraform-aws-modules/lambda/aws"
 
@@ -20,22 +24,36 @@ module "lambda_function_container_image" {
   # role_name = aws_iam_role.lambda_role.name
   # depends_on = [ aws_iam_role_policy_attachment.lambda_policy_attachment ]
   #only if create role is false, we define our policys, role and attach the policy to the role
-
-  #adding additional permissions to send sns:
-  policy_statements = {
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect   = "Allow"
-        Action   = [
-          "sns:Publish"
-        ]
-        Resource = "*"
-      }
-    ]
-  }
   
 
+
+   ######################
+    # Additional policies
+   ######################
+
+ 
+  # attach_policy_jsons = true
+  # policy_jsons = [
+  #   <<-EOT
+  #     {
+  #         "Version": "2012-10-17",
+  #         "Statement": [
+  #             {
+  #                 "Effect": "Allow",
+  #                 "Action": [
+  #                     "xray:*"
+  #                 ],
+  #                 "Resource": ["*"]
+  #             }
+  #         ]
+  #     }
+  #   EOT
+  # ]
+  # number_of_policy_jsons = 1
+
 }
+
+ 
+
 
 
