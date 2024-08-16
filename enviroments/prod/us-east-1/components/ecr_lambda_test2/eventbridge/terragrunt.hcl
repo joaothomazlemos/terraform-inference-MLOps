@@ -19,20 +19,20 @@ locals {
 
 inputs = {
   #eventbridge instance
-    lambda_name          = dependency.lambda_function.outputs.lambda_name
-    lambda_arn           = dependency.lambda_function.outputs.lambda_arn
-    eventbridge_description = "trigger the lambda every few minutes, is testing"
-    schedule_expression = "rate(5 minute)"
+  lambda_name             = dependency.lambda_function.outputs.lambda_name
+  lambda_arn              = dependency.lambda_function.outputs.lambda_arn
+  eventbridge_description = "trigger the lambda every few minutes, is testing"
+  schedule_expression     = "rate(5 minute)"
 
 
 }
 
 dependency "lambda_function" { # the name of the module does not matter, just the main.tf file
-    config_path = "../lambda"
-    mock_outputs = {
-        lambda_name = "mock-lambda-name"
-        lambda_arn = "arn:aws:lambda:us-east-1:123456789012:function:mock-lambda-name"
+  config_path = "../lambda"
+  mock_outputs = {
+    lambda_name = "mock-lambda-name"
+    lambda_arn  = "arn:aws:lambda:us-east-1:123456789012:function:mock-lambda-name"
 
-    }
+  }
 }
 
