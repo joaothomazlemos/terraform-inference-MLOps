@@ -22,7 +22,7 @@ inputs = {
   lambda_name             = dependency.lambda_function.outputs.lambda_name
   lambda_arn              = dependency.lambda_function.outputs.lambda_arn
   eventbridge_description = "trigger the lambda every few minutes, is testing"
-  schedule_expression     = "rate(5 minute)"
+  schedule_expression     = "rate(5 minutes)"
 
 
 }
