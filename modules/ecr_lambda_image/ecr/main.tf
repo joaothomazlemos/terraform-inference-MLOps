@@ -21,7 +21,7 @@ module "private_ecr" {
   repository_name = var.ecr_repository_name
   repository_type = "private"
   repository_read_write_access_arns = [data.aws_caller_identity.current.arn]
-  
+  repository_force_delete = true
   create_lifecycle_policy = true
   repository_lifecycle_policy = <<EOF
 {
