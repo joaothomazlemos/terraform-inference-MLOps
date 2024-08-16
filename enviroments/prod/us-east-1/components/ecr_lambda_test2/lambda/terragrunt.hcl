@@ -1,4 +1,5 @@
-include {
+include "commum env vars" {
+
   path = find_in_parent_folders()
 }
 

@@ -1,6 +1,6 @@
 #hinrerith from the root terragrunt.hcl ( backend and locals) so we have the state on the production bucket and lock table.
 #the hcl is also responsible to get the  production region and hcl locals.
-include {
+include "commum env vars" {
   path = find_in_parent_folders("terragrunt.hcl")
 }
 
