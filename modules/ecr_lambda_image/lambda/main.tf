@@ -8,12 +8,7 @@ module "lambda_function_container_image" {
   function_name = var.lambda_name
   description   = var.lambda_image_description #"A Lambda image to test my knowledge"
   runtime       = "python3.10"
-  #add a eventbridge trigger
-  event_source_mapping = {
-    event_source_arn = var.eventbridge_rule_arn
-    batch_size       = 1
-    enabled          = true
-  }
+
 
   create_package = false
 
@@ -41,7 +36,7 @@ module "lambda_function_container_image" {
   attach_policy_jsons = true
   policy_jsons = [
     data.aws_iam_policy_document.sns_policy.json
-     ]
+  ]
   number_of_policy_jsons = 1
 
 }
@@ -104,5 +99,5 @@ data "aws_iam_policy_document" "sns_policy" {
     resources = ["*"]
     effect    = "Allow"
   }
-  
+
 }
