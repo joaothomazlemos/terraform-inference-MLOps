@@ -6,7 +6,7 @@ import json
 
 def lambda_handler():
     #send a unique sns message when the lambda is triggered
-    topic_arn = "autoencoder_anomaly_alarm_test_debug"
+    topic_arn = "east-1:667854778706:autoencoder_anomaly_alarm_test_debug"
     sns = boto3.client('sns')
     sns.publish(
         TopicArn=topic_arn,
