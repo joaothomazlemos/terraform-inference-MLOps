@@ -33,12 +33,12 @@ dependency "private_ecr" {
   }
 }
 
-# dependency "eventBridge" {
-#   config_path = "../eventbridge"
-#   mock_outputs = {
-#     eventbridge_rule_arn = "arn:aws:events:region:aws_account_id:rule/mock-eventbridge-rule"
-#   }
-# }
+dependency "eventBridge" {
+  config_path = "../eventbridge"
+  mock_outputs = {
+    eventbridge_rule_arn = "arn:aws:events:region:aws_account_id:rule/mock-eventbridge-rule"
+  }
+}
 
 
 
@@ -49,7 +49,7 @@ inputs = {
   image_uri                = dependency.private_ecr.outputs.private_repository_url
   image_digest             = dependency.private_ecr.outputs.private_image_digest
   ecr_image_tag            = local.env
-  #eventbridge_rule_arn     = dependency.eventBridge.outputs.eventbridge_rule_arn
+  eventbridge_rule_arn     = dependency.eventBridge.outputs.eventbridge_rule_arn
 
 
 }

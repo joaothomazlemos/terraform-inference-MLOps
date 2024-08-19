@@ -27,12 +27,12 @@ inputs = {
 
 }
 
-dependency "lambda_function" { # the name of the module does not matter, just the main.tf file
-  config_path = "../lambda"
-  mock_outputs = {
-    lambda_name = "mock-lambda-name"
-    lambda_arn  = "arn:aws:lambda:us-east-1:123456789012:function:mock-lambda-name"
+# dependency "lambda_function" { # the name of the module does not matter, just the main.tf file
+#   config_path = "../lambda"
+#   mock_outputs = {
+#     lambda_name = "mock-lambda-name"
+#     lambda_arn  = "arn:aws:lambda:us-east-1:123456789012:function:mock-lambda-name"
 
-  }
-}
+#   }
+# }
 
