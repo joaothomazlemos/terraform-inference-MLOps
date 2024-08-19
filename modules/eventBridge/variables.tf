@@ -1,12 +1,15 @@
 variable "lambda_name" {
   description = "The name of the lambda function"
   type        = string
+  default     = "my-function"
 
 }
 
 variable "lambda_arn" {
   description = "The ARN of the lambda function"
   type        = string
+  #random default value
+  default     = "arn:aws:lambda:us-east-1:123456789012:function:my-function"
 
 }
 
