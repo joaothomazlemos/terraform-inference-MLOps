@@ -19,8 +19,8 @@ locals {
 
 inputs = {
   #eventbridge instance
-  lambda_name             = dependency.lambda_function.outputs.lambda_name
-  lambda_arn              = dependency.lambda_function.outputs.lambda_function_arn
+  # lambda_name             = dependency.lambda_function.outputs.lambda_name
+  # lambda_arn              = dependency.lambda_function.outputs.lambda_function_arn
   eventbridge_description = "trigger the lambda every few minutes, is testing"
   schedule_expression     = "rate(5 minutes)"
 

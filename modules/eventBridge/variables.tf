@@ -9,7 +9,7 @@ variable "lambda_arn" {
   description = "The ARN of the lambda function"
   type        = string
   #random default value
-  default     = "arn:aws:lambda:us-east-1:123456789012:function:my-function"
+  default     = "arn:aws:lambda:us-east-1:667854778706:function:my-function"
 
 }
 
