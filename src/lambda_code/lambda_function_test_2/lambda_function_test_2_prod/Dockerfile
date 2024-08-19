@@ -20,4 +20,4 @@ RUN pip install --quiet -r ${LAMBDA_TASK_ROOT}/requirements.txt
 COPY app/ ${LAMBDA_TASK_ROOT}/app/
 
 # Set the CMD to your Lambda handler (could also be done as a parameter override outside of the Dockerfile)
-CMD ["lambda_function.handler"]
+CMD ["app/lambda_function.lambda_handler"]
