@@ -26,3 +26,9 @@ variable "ecr_image_tag" {
   type        = string
 
 }
+
+variable "eventbridge_rule_arn" {
+  description = "The ARN of the EventBridge rule"
+  type        = string
+  
+}

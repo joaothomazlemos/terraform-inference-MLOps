@@ -8,6 +8,12 @@ module "lambda_function_container_image" {
   function_name = var.lambda_name
   description   = var.lambda_image_description #"A Lambda image to test my knowledge"
   runtime       = "python3.10"
+  #add a eventbridge trigger
+  event_source_mapping = {
+    event_source_arn = var.eventbridge_rule_arn
+    batch_size       = 1
+    enabled          = true
+  }
 
   create_package = false
 
@@ -34,71 +40,69 @@ module "lambda_function_container_image" {
 
   attach_policy_jsons = true
   policy_jsons = [
-    <<-EOT
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Effect = "Allow"
-          Action = [
-            "sns:Publish",
-            "sns:Subscribe",
-            "sns:Unsubscribe",
-            "sns:ListSubscriptionsByTopic",
-            "sns:ListSubscriptions",
-            "sns:ListTopics",
-            "sns:GetTopicAttributes",
-            "sns:GetSubscriptionAttributes",
-            "sns:ConfirmSubscription",
-            "sns:CreateTopic",
-            "sns:DeleteTopic",
-            "sns:SetTopicAttributes",
-            "sns:SetSubscriptionAttributes",
-            "sns:AddPermission",
-            "sns:RemovePermission",
-            "sns:Receive",
-            "sns:DeleteEndpoint",
-            "sns:CreatePlatformEndpoint",
-            "sns:CheckIfPhoneNumberIsOptedOut",
-            "sns:CheckIfPhoneNumberIsOptedOut",
-            "sns:ConfirmSubscription",
-            "sns:CreatePlatformApplication",
-            "sns:CreatePlatformEndpoint",
-            "sns:CreateTopic",
-            "sns:DeleteEndpoint",
-            "sns:DeletePlatformApplication",
-            "sns:DeletePlatformEndpoint",
-            "sns:DeleteTopic",
-            "sns:GetEndpointAttributes",
-            "sns:GetPlatformApplicationAttributes",
-            "sns:GetSMSAttributes",
-            "sns:GetSubscriptionAttributes",
-            "sns:GetTopicAttributes",
-            "sns:ListEndpointsByPlatformApplication",
-            "sns:ListPhoneNumbersOptedOut",
-            "sns:ListPlatformApplications",
-            "sns:ListSubscriptions",
-            "sns:ListSubscriptionsByTopic",
-            "sns:ListTagsForResource",
-            "sns:ListTopics",
-            "sns:OptInPhoneNumber",
-            "sns:Publish",
-            "sns:RemovePermission",
-            "sns:SetEndpointAttributes",
-            "sns:SetPlatformApplicationAttributes",
-            "sns:SetSMSAttributes",
-            "sns:SetSubscriptionAttributes",
-            "sns:SetTopicAttributes",
-            "sns:Subscribe",
-            "sns:TagResource",
-            "sns:Unsubscribe"
-          ]
-          Resource = ["*"]
-        }
-      ]
-    }
-    EOT
-  ]
+    data.aws_iam_policy_document.sns_policy.json
+     ]
   number_of_policy_jsons = 1
 
+}
+
+data "aws_iam_policy_document" "sns_policy" {
+  statement {
+    actions = [
+      "sns:Publish",
+      "sns:Subscribe",
+      "sns:Unsubscribe",
+      "sns:ListSubscriptionsByTopic",
+      "sns:ListSubscriptions",
+      "sns:ListTopics",
+      "sns:GetTopicAttributes",
+      "sns:GetSubscriptionAttributes",
+      "sns:ConfirmSubscription",
+      "sns:CreateTopic",
+      "sns:DeleteTopic",
+      "sns:SetTopicAttributes",
+      "sns:SetSubscriptionAttributes",
+      "sns:AddPermission",
+      "sns:RemovePermission",
+      "sns:Receive",
+      "sns:DeleteEndpoint",
+      "sns:CreatePlatformEndpoint",
+      "sns:CheckIfPhoneNumberIsOptedOut",
+      "sns:CheckIfPhoneNumberIsOptedOut",
+      "sns:ConfirmSubscription",
+      "sns:CreatePlatformApplication",
+      "sns:CreatePlatformEndpoint",
+      "sns:CreateTopic",
+      "sns:DeleteEndpoint",
+      "sns:DeletePlatformApplication",
+      "sns:DeletePlatformEndpoint",
+      "sns:DeleteTopic",
+      "sns:GetEndpointAttributes",
+      "sns:GetPlatformApplicationAttributes",
+      "sns:GetSMSAttributes",
+      "sns:GetSubscriptionAttributes",
+      "sns:GetTopicAttributes",
+      "sns:ListEndpointsByPlatformApplication",
+      "sns:ListPhoneNumbersOptedOut",
+      "sns:ListPlatformApplications",
+      "sns:ListSubscriptions",
+      "sns:ListSubscriptionsByTopic",
+      "sns:ListTagsForResource",
+      "sns:ListTopics",
+      "sns:OptInPhoneNumber",
+      "sns:Publish",
+      "sns:RemovePermission",
+      "sns:SetEndpointAttributes",
+      "sns:SetPlatformApplicationAttributes",
+      "sns:SetSMSAttributes",
+      "sns:SetSubscriptionAttributes",
+      "sns:SetTopicAttributes",
+      "sns:Subscribe",
+      "sns:TagResource",
+      "sns:Unsubscribe"
+    ]
+    resources = ["*"]
+    effect    = "Allow"
+  }
+  
 }
