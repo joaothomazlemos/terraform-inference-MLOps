@@ -15,7 +15,7 @@ module "eventbridge" {
       {
         name  = var.lambda_name
         arn   = var.lambda_arn
-        input = jsonencode({"job": "cron-by-rate"})
+        input = jsonencode({ "job" : "cron-by-rate" })
       }
     ]
   }

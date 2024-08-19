@@ -2,12 +2,12 @@ data "aws_caller_identity" "current" {}
 data "aws_ecr_authorization_token" "auth" {}
 
 locals {
-  repository_url = module.private_ecr.repository_url # created on the aws_ecr_repository resource on this module, passed by the ecr component
+  repository_url  = module.private_ecr.repository_url # created on the aws_ecr_repository resource on this module, passed by the ecr component
   repository_name = module.private_ecr.repository_name
-  image_tag      = var.ecr_image_tag
-  image_files    = fileset("${var.image_source}", "**") # this will get all the files inside the image_source directory. even if it is a subdirectory.
-  image_hashes   = [for file in local.image_files : filesha1("${var.image_source}/${file}")]
-  combined_hash  = sha1(join("", local.image_hashes))
+  image_tag       = var.ecr_image_tag
+  image_files     = fileset("${var.image_source}", "**") # this will get all the files inside the image_source directory. even if it is a subdirectory.
+  image_hashes    = [for file in local.image_files : filesha1("${var.image_source}/${file}")]
+  combined_hash   = sha1(join("", local.image_hashes))
 
 }
 
@@ -42,15 +42,15 @@ data "aws_ecr_image" "latest_image" {
 
 output "image_files" {
   value = local.image_files
-  
+
 }
 
 output "image_source" {
   value = var.image_source
-  
+
 }
 
 output "working_directory" {
   value = path.cwd
-  
+
 }

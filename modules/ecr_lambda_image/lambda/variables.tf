@@ -24,5 +24,5 @@ variable "lambda_image_description" {
 variable "ecr_image_tag" {
   description = "The tag of the Docker image"
   type        = string
-  
+
 }

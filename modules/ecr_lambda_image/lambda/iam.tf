@@ -1,14 +1,14 @@
 #rolw creation
 data "aws_iam_policy_document" "lambda_assume_role_policy" {
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
     principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }
-    }
+  }
 }
 
 
@@ -21,12 +21,12 @@ resource "aws_iam_role" "lambda_role" {
 resource "aws_iam_policy" "ecr_access_policy" {
   name        = "lambda__ecr_policy"
   description = "Policy for lambda to access ECR"
-  policy      = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "ecr:*"
         ],
         Resource = "*"
@@ -39,12 +39,12 @@ resource "aws_iam_policy" "ecr_access_policy" {
 resource "aws_iam_policy" "sns_access_policy" {
   name        = "lambda_sns_policy"
   description = "Policy for lambda to access SNS"
-  policy      = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "sns:*"
         ],
         Resource = "*"
@@ -58,21 +58,21 @@ resource "aws_iam_policy" "sns_access_policy" {
 resource "aws_iam_policy" "log_group_policy" {
   name        = "lambda_log_group_policy"
   description = "Policy for lambda to access cloudwatch log group"
-  policy      = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "logs:CreateLogGroup",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents"
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
         ],
         Resource = ["arn:aws:logs:*:*:*"]
       }
     ]
   })
-  
+
 }
 
 #attach policies to role
