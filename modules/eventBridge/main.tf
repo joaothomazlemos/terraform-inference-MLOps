@@ -1,10 +1,10 @@
 module "eventbridge" {
   source = "terraform-aws-modules/eventbridge/aws"
 
-  # tags = {
-  #   Name        = "eventbridge-rule-lambda-test"
-  #   Environment = "prod"
-  # }
+  tags = {
+    Name        = "eventbridge-rule-lambda-test"
+    Environment = "prod"
+  }
   create_bus = false
 
   rules = {

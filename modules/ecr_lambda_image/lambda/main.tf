@@ -12,16 +12,6 @@ module "lambda_function_container_image" {
 
   create_package = false
 
-  #add the eventbridge trigger to the lambda module
-  event_source_mapping = {
-    event_bridge = {
-      event_bus_arn = var.eventbridge_rule_arn
-    }
-  }
-
-
-
-
 
   image_uri    = "${var.image_uri}:${var.ecr_image_tag}" # when triggered, the lambda function will be updated with the new image ( same name , new sha256)
   package_type = "Image"
