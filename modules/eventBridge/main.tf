@@ -24,3 +24,16 @@ module "eventbridge" {
     ]
   }
 }
+
+
+
+#create the permission for the eventbridge rule to trigger the lambda
+resource "aws_lambda_permission" "eventbridge_lambda_permission" {
+  statement_id  = "AllowExecutionFromEventBridge"
+  action        = "lambda:InvokeFunction"
+  function_name = var.lambda_name
+  principal     = "events.amazonaws.com"
+  source_arn    = module.eventbridge.eventbridge_rule_arns["crons"]
+  depends_on = [ module.eventbridge ]
+}
+
