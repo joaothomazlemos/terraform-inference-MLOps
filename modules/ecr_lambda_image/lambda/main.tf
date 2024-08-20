@@ -1,6 +1,8 @@
 
-# data "aws_caller_identity" "current" {}
-# data "aws_ecr_authorization_token" "auth" {}
+data "aws_caller_identity" "current" {}
+data "aws_ecr_authorization_token" "auth" {}
+
+
 
 module "lambda_function_container_image" {
   source = "terraform-aws-modules/lambda/aws"
@@ -21,10 +23,36 @@ module "lambda_function_container_image" {
     IMAGE_DIGEST = var.image_digest
   }
 
-  create_role = true # we need more than basic iam policy to work with ecr so we create our own role and policy
-  # role_name = aws_iam_role.lambda_role.name
-  # depends_on = [ aws_iam_role_policy_attachment.lambda_policy_attachment ]
-  #only if create role is false, we define our policys, role and attach the policy to the role
+  create_role = true #create the default role.
+#   assume_role_policy_statements = {
+#   iam_user_access = {
+#     effect  = "Allow",
+#     actions = ["sts:AssumeRole"],
+#     principals = {
+#       user_principal = {
+#         type        = "AWS",
+#         identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${var.iam_user_name}"]
+#       }
+#     }
+   
+#   }
+# }
+  # assume_role_policy_statements = [
+  #   {
+  #     effect  = "Allow"
+  #     actions = ["sts:AssumeRole"]
+
+  #     principals = [
+  #       {
+  #       type        = "Service"
+  #       identifiers = ["lambda.amazonaws.com"]
+  #       }
+  #     ]
+    
+  #   }
+  # ]
+  # # depends_on = [ aws_iam_role_policy_attachment.lambda_policy_attachment ]
+  # #only if create role is false, we define our policys, role and attach the policy to the role
 
 
 
@@ -35,69 +63,9 @@ module "lambda_function_container_image" {
 
   attach_policy_jsons = true
   policy_jsons = [
-    data.aws_iam_policy_document.sns_policy.json
+    data.aws_iam_policy_document.sns_policy.json,
+    data.aws_iam_policy_document.ecr_policy.json
   ]
-  number_of_policy_jsons = 1
-
-}
-
-data "aws_iam_policy_document" "sns_policy" {
-  statement {
-    actions = [
-      "sns:Publish",
-      "sns:Subscribe",
-      "sns:Unsubscribe",
-      "sns:ListSubscriptionsByTopic",
-      "sns:ListSubscriptions",
-      "sns:ListTopics",
-      "sns:GetTopicAttributes",
-      "sns:GetSubscriptionAttributes",
-      "sns:ConfirmSubscription",
-      "sns:CreateTopic",
-      "sns:DeleteTopic",
-      "sns:SetTopicAttributes",
-      "sns:SetSubscriptionAttributes",
-      "sns:AddPermission",
-      "sns:RemovePermission",
-      "sns:Receive",
-      "sns:DeleteEndpoint",
-      "sns:CreatePlatformEndpoint",
-      "sns:CheckIfPhoneNumberIsOptedOut",
-      "sns:CheckIfPhoneNumberIsOptedOut",
-      "sns:ConfirmSubscription",
-      "sns:CreatePlatformApplication",
-      "sns:CreatePlatformEndpoint",
-      "sns:CreateTopic",
-      "sns:DeleteEndpoint",
-      "sns:DeletePlatformApplication",
-      "sns:DeletePlatformEndpoint",
-      "sns:DeleteTopic",
-      "sns:GetEndpointAttributes",
-      "sns:GetPlatformApplicationAttributes",
-      "sns:GetSMSAttributes",
-      "sns:GetSubscriptionAttributes",
-      "sns:GetTopicAttributes",
-      "sns:ListEndpointsByPlatformApplication",
-      "sns:ListPhoneNumbersOptedOut",
-      "sns:ListPlatformApplications",
-      "sns:ListSubscriptions",
-      "sns:ListSubscriptionsByTopic",
-      "sns:ListTagsForResource",
-      "sns:ListTopics",
-      "sns:OptInPhoneNumber",
-      "sns:Publish",
-      "sns:RemovePermission",
-      "sns:SetEndpointAttributes",
-      "sns:SetPlatformApplicationAttributes",
-      "sns:SetSMSAttributes",
-      "sns:SetSubscriptionAttributes",
-      "sns:SetTopicAttributes",
-      "sns:Subscribe",
-      "sns:TagResource",
-      "sns:Unsubscribe"
-    ]
-    resources = ["*"]
-    effect    = "Allow"
-  }
+  number_of_policy_jsons = 2
 
 }

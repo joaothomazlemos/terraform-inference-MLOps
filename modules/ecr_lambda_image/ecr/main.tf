@@ -46,6 +46,8 @@ EOF
     Terraform   = "true"
     Environment = var.ecr_image_tag
   }
+
+  repository_read_access_arns = [data.aws_caller_identity.current.arn]
 }
 
 

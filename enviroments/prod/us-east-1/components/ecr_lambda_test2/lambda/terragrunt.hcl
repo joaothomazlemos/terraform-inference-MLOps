@@ -15,6 +15,7 @@ locals {
   aws_region     = local.region_vars.locals.aws_region
   aws_account_id = local.account_vars.locals.aws_account_id
   env            = local.env_vars.locals.environment
+  iam_user_name  = local.account_vars.locals.iam_user_name
 
 
 
@@ -41,6 +42,7 @@ inputs = {
   image_uri                = dependency.private_ecr.outputs.private_repository_url
   image_digest             = dependency.private_ecr.outputs.private_image_digest
   ecr_image_tag            = local.env
+  iam_user_name            = local.iam_user_name
   
 
 }
