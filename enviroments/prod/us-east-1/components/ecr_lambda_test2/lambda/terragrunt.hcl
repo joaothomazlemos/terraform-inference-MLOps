@@ -34,9 +34,6 @@ dependency "private_ecr" {
 }
 
 
-
-
-
 inputs = {
   #lambda module instance
   lambda_name              = "lambda_function_test_2"
