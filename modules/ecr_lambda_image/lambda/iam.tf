@@ -15,7 +15,13 @@ data "aws_iam_policy_document" "sns_policy" {
 data "aws_iam_policy_document" "ecr_policy" {
   statement {
     actions = [
-      "ecr:*"
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:BatchGetImage",
+      "ecr:CompleteLayerUpload",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:InitiateLayerUpload",
+      "ecr:GetRepositoryPolicy",
+      "ecr:SetRepositoryPolicy"
     ]
     resources = ["*"]
     effect    = "Allow"

@@ -68,4 +68,19 @@ module "lambda_function_container_image" {
   ]
   number_of_policy_jsons = 2
 
+  # attach_policy_statements = true
+  # policy_statements = {
+  #   sns_policy = {
+  #     effect = "Allow"
+  #     actions = ["sns:*"]
+  #     resources = ["*"]
+  #   }
+  #   ecr_policy = {
+  #     effect = "Allow"
+  #     actions = ["ecr:*"]
+  #     resources = ["*"]
+  #   }
+  # }
+
 }
+  

@@ -48,6 +48,13 @@ EOF
   }
 
   repository_read_access_arns = [data.aws_caller_identity.current.arn]
+
+  #attach additional policies to the repository
+  # create_registry_policy = true
+  # registry_policy        = data.aws_iam_policy_document.registry.json
+
+  attach_repository_policy = true
+  repository_policy        = data.aws_iam_policy_document.ecr_policy.json
 }
 
 
