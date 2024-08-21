@@ -18,7 +18,7 @@ module "private_ecr" {
   repository_image_scan_on_push   = true
   repository_image_tag_mutability = "MUTABLE"
 
-  
+
 
   repository_name                   = var.ecr_repository_name
   repository_type                   = "private"
