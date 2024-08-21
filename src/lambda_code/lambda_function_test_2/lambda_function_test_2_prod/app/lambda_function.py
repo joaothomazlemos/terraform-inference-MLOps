@@ -10,9 +10,9 @@ def lambda_handler(event, context):
     sns = boto3.client('sns')
     sns.publish(
         TopicArn=topic_arn,
-         Message="Hello from Lambda IMAGE!"
+         Message="Hello from Lambda IMAGE! git hub actions test."
     )
     return {
         'statusCode': 200,
-        'body': json.dumps('Hello from Lambda IMAGE! jao here')
+        'body': json.dumps('Hello from Lambda IMAGE! jao here.')
     }
