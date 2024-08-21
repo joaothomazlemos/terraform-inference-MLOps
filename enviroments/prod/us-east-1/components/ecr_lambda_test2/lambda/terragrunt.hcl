@@ -43,7 +43,7 @@ inputs = {
   image_digest             = dependency.private_ecr.outputs.private_image_digest
   ecr_image_tag            = local.env
   iam_user_name            = local.iam_user_name
-  
+
 
 }
 
