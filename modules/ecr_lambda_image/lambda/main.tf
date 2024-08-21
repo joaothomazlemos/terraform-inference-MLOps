@@ -13,47 +13,15 @@ module "lambda_function_container_image" {
 
 
   create_package = false
+  
 
-
-  image_uri    = "${var.image_uri}:${var.ecr_image_tag}" # when triggered, the lambda function will be updated with the new image ( same name , new sha256)
+  image_uri    = "${var.image_uri}@${var.image_digest}"
   package_type = "Image"
 
-  # The image digest is used to trigger updates when the image changes: pull the latest image from the ECR repository
-  environment_variables = {
-    IMAGE_DIGEST = var.image_digest
-  }
+
+  
 
   create_role = true #create the default role.
-#   assume_role_policy_statements = {
-#   iam_user_access = {
-#     effect  = "Allow",
-#     actions = ["sts:AssumeRole"],
-#     principals = {
-#       user_principal = {
-#         type        = "AWS",
-#         identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${var.iam_user_name}"]
-#       }
-#     }
-   
-#   }
-# }
-  # assume_role_policy_statements = [
-  #   {
-  #     effect  = "Allow"
-  #     actions = ["sts:AssumeRole"]
-
-  #     principals = [
-  #       {
-  #       type        = "Service"
-  #       identifiers = ["lambda.amazonaws.com"]
-  #       }
-  #     ]
-    
-  #   }
-  # ]
-  # # depends_on = [ aws_iam_role_policy_attachment.lambda_policy_attachment ]
-  # #only if create role is false, we define our policys, role and attach the policy to the role
-
 
 
   ######################
@@ -68,19 +36,7 @@ module "lambda_function_container_image" {
   ]
   number_of_policy_jsons = 2
 
-  # attach_policy_statements = true
-  # policy_statements = {
-  #   sns_policy = {
-  #     effect = "Allow"
-  #     actions = ["sns:*"]
-  #     resources = ["*"]
-  #   }
-  #   ecr_policy = {
-  #     effect = "Allow"
-  #     actions = ["ecr:*"]
-  #     resources = ["*"]
-  #   }
-  # }
+
 
 }
-  
+

@@ -19,9 +19,7 @@ data "aws_iam_policy_document" "ecr_policy" {
       "ecr:BatchGetImage",
       "ecr:CompleteLayerUpload",
       "ecr:GetDownloadUrlForLayer",
-      "ecr:InitiateLayerUpload",
-      "ecr:GetRepositoryPolicy",
-      "ecr:SetRepositoryPolicy"
+      "ecr:InitiateLayerUpload"
     ]
     resources = ["*"]
     effect    = "Allow"

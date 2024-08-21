@@ -18,34 +18,36 @@ module "private_ecr" {
   repository_image_scan_on_push   = true
   repository_image_tag_mutability = "MUTABLE"
 
+  
+
   repository_name                   = var.ecr_repository_name
   repository_type                   = "private"
   repository_read_write_access_arns = [data.aws_caller_identity.current.arn]
   repository_force_delete           = true
   create_lifecycle_policy           = true
   repository_lifecycle_policy       = <<EOF
-{
-  "rules": [
-    {
-      "rulePriority": 1,
-      "description": "Keep the last 15 images",
-      "selection": {
-        "tagStatus": "any",
-        "countType": "imageCountMoreThan",
-        "countNumber": 15
-      },
-      "action": {
-        "type": "expire"
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Keep the last 15 images",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 15
+        },
+        "action": {
+          "type": "expire"
+        }
       }
-    }
-  ]
-}
-EOF
-
-  tags = {
-    Terraform   = "true"
-    Environment = var.ecr_image_tag
+    ]
   }
+  EOF
+
+  # tags = {
+  #   Terraform   = "true"
+  #   Environment = var.ecr_image_tag
+  # }
 
   repository_read_access_arns = [data.aws_caller_identity.current.arn]
 
