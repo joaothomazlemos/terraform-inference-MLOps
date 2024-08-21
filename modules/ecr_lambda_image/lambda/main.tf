@@ -13,13 +13,13 @@ module "lambda_function_container_image" {
 
 
   create_package = false
-  
+
 
   image_uri    = "${var.image_uri}@${var.image_digest}"
   package_type = "Image"
 
 
-  
+
 
   create_role = true #create the default role.
 

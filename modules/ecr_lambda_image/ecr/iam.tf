@@ -6,8 +6,8 @@ data "aws_iam_policy_document" "ecr_policy" {
   statement {
 
 
-    
-    actions   = [
+
+    actions = [
       "ecr:GetAuthorizationToken",
       "ecr:BatchCheckLayerAvailability",
       "ecr:GetDownloadUrlForLayer",
